@@ -2,4 +2,18 @@
 Version: 0.1.0
 Date: 29/12/2020
   Features:
-    - First Release
+    - Added Dimensional Ore
+    - Added Dimensional Fluid
+    - Added the Dimensional Sample
+    - Added the Dimensional Plate
+    - Added the Dimensional Crystal
+    - Added the Dimensional Wire
+    - Added the Dimensional Circuit
+    - Added the Crystalized Circuit
+    - Added the Machine Frame MK1
+    - Added the Machine Frame MK2
+    - Added the Machine Frame MK3
+    - Added the Energy Core
+    - Added the Dimensional Lab
+    - Added the Dimensional Furnace
+    - Added the Crystallizer

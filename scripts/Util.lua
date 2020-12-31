@@ -30,6 +30,7 @@ function mfCall(fName, ...)
 		for _, player in pairs(game.players) do
 			GAPI.createErrorWindow(error, player)
 		end
+		return true
 	end
 end
 

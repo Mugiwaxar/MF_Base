@@ -201,16 +201,16 @@ end
 
 -- Transform big numbers to readable numbers --
 function Util.toRNumber(number)
-	if number == nil then return 0 end
-	local rNumber = string.format("%.2f", number)
-	if number >= 1000 and number < 1000000 then
-		rNumber = string.format("%.2f", number/1000) .. " k"
-	elseif number >= 1000000 and number < 1000000000 then
-		rNumber = string.format("%.2f", number/1000000) .. " M"
-	elseif number >= 1000000000 then
-		rNumber = string.format("%.2f", number/1000000000) .. " G"
-	end
-	return rNumber
+    if number == nil then return 0 end
+    local rNumber = string.format("%.2f", number)
+    if number >= 1000 and number < 1000000 then
+        rNumber = string.format("%.2f", number/1000) .. " k"
+    elseif number >= 1000000 and number < 1000000000 then
+        rNumber = string.format("%.2f", number/1000000) .. " M"
+    elseif number >= 1000000000 then
+        rNumber = string.format("%.2f", number/1000000000) .. " G"
+    end
+    return string.gsub(rNumber, "%.?0+$", "")
 end
 
 -- Copy a Table --

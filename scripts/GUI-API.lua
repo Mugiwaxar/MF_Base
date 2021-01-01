@@ -293,10 +293,10 @@ function GAPI.addDualLabel(GUITable, gui, text1, text2, color1, color2, font, to
 end
 
 -- Add a new Text Field --
-function GAPI.addTextField(GUITable, name, gui, text, tooltip, save, numeric, allowDecimal, allowNegative, isPassword)
+function GAPI.addTextField(GUITable, name, gui, text, tooltip, save, numeric, allowDecimal, allowNegative, isPassword, tags)
     -- Check if this Element doesn't exist --
     if gui[name] ~= nil then gui[name].destroy() end
-    local textField = gui.add{type="textfield", name=name, text=text, tooltip=tooltip, numeric=numeric or false, allow_decimal=allowDecimal or false, allow_negative=allowNegative or false, is_password=isPassword or false}
+    local textField = gui.add{type="textfield", name=name, text=text, tooltip=tooltip, numeric=numeric or false, allow_decimal=allowDecimal or false, allow_negative=allowNegative or false, is_password=isPassword or false, tags=tags}
     if GUITable ~= nil and save == true then
         GUITable.vars[name] = textField
     end
@@ -472,6 +472,30 @@ function GAPI.addItemFrame(GUITable, name, item, amount, gui, save)
         GUITable.vars[name] = frame
     end
     return frame
+end
+
+-- Create a Camera Frame --
+function GAPI.createCamera(MFPlayer, name, title, ent, size, zoom)
+
+    -- Create the Main Frame --
+    local GUITable = GAPI.createBaseWindows(name, title, MFPlayer, true, true, false, "vertical", "vertical")
+    local mainFrame = GUITable.gui.MainFrame
+    GAPI.setAllSize(mainFrame, size, size)
+
+    -- Add the Close Button --
+    GAPI.addCloseButton(GUITable)
+
+    -- Don't allow to Auto center --
+    GUITable.gui.auto_center = false
+
+	-- Create the Camera --
+    local camera = mainFrame.add{type="camera", position=ent.position, surface_index =ent.surface.index, zoom=zoom or 1}
+    camera.style.vertically_stretchable = true
+	camera.style.horizontally_stretchable = true
+
+	-- Return the Frame --
+	return GUITable
+
 end
 
 -- Create the Window that handle Error message --

@@ -477,12 +477,18 @@ end
 -- Create the Window that handle Error message --
 function GAPI.createErrorWindow(error, player)
 
+    -- Check if the Windows doesn't already exist --
+    if player.gui.screen.MFBaseErrorWindows ~= nil and player.gui.screen.MFBaseErrorWindows.valid == true then
+        return
+    end
+
     -- Create the Main Frame --
     local GUITable = GAPI.createBaseWindows("MFBaseErrorWindows", {"gui-description.MFError"}, {ent=player}, true, true, false, "vertical", "vertical")
     local mainFrame = GUITable.gui.MainFrame
 
     -- Create the Text Box --
-    local errorText = "[color=white]A error occurred while executing a script and was caught to prevent a crash:[/color]\n\n"
+    local errorText = "[color=white]A error occurred while executing a script and was caught to prevent a crash.[/color]\n"
+    errorText = errorText .. "[color=white]Please report this error to the mod author.[/color]\n\n"
     errorText = errorText .. "[color=red]" .. error .. "[/color]\n\n"
     errorText = errorText .. "[color=white]You can still continue but this is not safe and may create some strange behaviors.[/color]\n"
     errorText = errorText .. "[color=white]Please keep a save before this error as a backup.[/color]"

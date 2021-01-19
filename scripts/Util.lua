@@ -17,10 +17,10 @@ end
 -- Used to do a protected Function call --
 function mfCall(fName, ...)
 	-- Dont use pcall() if the game is in Instrument mode --
-	-- if game.active_mods["debugadapter"] then
-	-- 	fName(...)
-	-- 	return
-	-- end
+	if game.active_mods["debugadapter"] then
+		fName(...)
+		return
+	end
 	-- Secure call the Function --
 	local result, error = pcall(fName, ...)
 
@@ -201,16 +201,21 @@ end
 
 -- Transform big numbers to readable numbers --
 function Util.toRNumber(number)
-    if number == nil then return 0 end
-    local rNumber = string.format("%.2f", number)
-    if number >= 1000 and number < 1000000 then
-        rNumber = string.format("%.2f", number/1000) .. " k"
-    elseif number >= 1000000 and number < 1000000000 then
-        rNumber = string.format("%.2f", number/1000000) .. " M"
-    elseif number >= 1000000000 then
-        rNumber = string.format("%.2f", number/1000000000) .. " G"
-    end
-    return string.gsub(rNumber, "%.?0+$", "")
+	if number == nil then return 0 end
+	local rNumber = number
+	local rSuffix = "";
+	if number >= 1000000000 then
+		rNumber = number/1000000000
+		rSuffix = " G"
+	elseif number >= 1000000 then
+		rNumber = number/1000000
+		rSuffix = " M"
+	elseif number >= 1000 then
+		rNumber = number/1000 
+		rSuffix = " k"
+	end
+
+	return string.format("%.2f", rNumber):gsub("%.0+$", "") .. rSuffix
 end
 
 -- Copy a Table --

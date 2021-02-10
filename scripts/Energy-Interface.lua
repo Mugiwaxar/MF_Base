@@ -89,7 +89,7 @@ end
 
 -- Remove Energy --
 function EI.removeEnergy(obj, amount)
-    if obj.ent == nil or obj.ent.valid == false then return end
+    if obj.ent == nil or obj.ent.valid == false then return 0 end
     if amount <= 0 then return end
     local maxRemoved = math.min(amount, EI.energy(obj))
     if obj.energyCharge ~= nil then

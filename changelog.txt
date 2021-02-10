@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.1
+Date: 12/01/2021
+  Bugfixes:
+    - Remove energy to an nil Object return now 0 instead of nil (Removing an Internal Energy Cube will no longeur crash the game)
+---------------------------------------------------------------------------------------------------
 Version: 0.3.0
 Date: 12/01/2021
   Scripting:

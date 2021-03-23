@@ -16,7 +16,7 @@ data:extend{
 		type="item-group",
 		name="MFBase",
 		icon="__MF_Base__/graphics/items/DimensionalPlate.png",
-		icon_size="32",
+		icon_size="64",
 		order="w"
 	}
 }

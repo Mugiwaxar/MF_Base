@@ -1,8 +1,17 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.0
+Date: 23/03/2021
+  Features:
+    - Added new HD Icon for the Dimensional Fluid
+    - Added new HD Icon for the Dimensional Plate
+    - Added new HD Icon for the Dimensional Wire
+    - Added new HD Icon for the Dimensional Circuit
+    - Added new HD Icon for the Crystalized Circuit
+---------------------------------------------------------------------------------------------------
 Version: 0.3.1
 Date: 12/01/2021
   Bugfixes:
-    - Remove energy to an nil Object return now 0 instead of nil (Removing an Internal Energy Cube will no longeur crash the game)
+    - Remove energy to an nil Object return now 0 instead of nil (Removing an Internal Energy Cube will no longer crash the game)
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.0
 Date: 12/01/2021

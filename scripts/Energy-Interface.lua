@@ -5,9 +5,9 @@ _mfEnergyStructures = {
     ["EnergyLaser1"] = {speed=200000, canAccept=false, scanArea={-1, -1, 1, 1}},
     ["EnergyLaser2"] = {speed=1500000, canAccept=false, scanArea={-1, -1, 1, 1}},
     ["EnergyLaser3"] = {speed=5000000, canAccept=false, scanArea={-1, -1, 1, 1}},
-    ["EnergyCubeMK1"] = {speed=200000, canAccept=true, scanArea={-1.5, -1.5, 1.5, 1.5}},
-    ["EnergyCubeMK2"] = {speed=1500000, canAccept=true, scanArea={-1.5, -1.5, 1.5, 1.5}},
-    ["EnergyCubeMK3"] = {speed=5000000, canAccept=true, scanArea={-1.5, -1.5, 1.5, 1.5}},
+    ["EnergyCubeMK1"] = {speed=200000, canAccept=true, scanArea={-1.5, -2, 1.5, 2}},
+    ["EnergyCubeMK2"] = {speed=1500000, canAccept=true, scanArea={-1.5, -2, 1.5, 2}},
+    ["EnergyCubeMK3"] = {speed=5000000, canAccept=true, scanArea={-1.5, -2, 1.5, 2}},
     ["InternalEnergyCube"] = {speed=5000000, canAccept=true, scanArea={-3.5, -2.5, 3.5, 4.5}},
     ["EnergyDispenserAcc"] = {speed=10000000, canAccept=true, scanArea={-2.5, -2.5, 2.5, 2.5}}
 }
@@ -17,14 +17,13 @@ _mfQuatronStructures = {
     ["QuatronLaser1"] = {speed=200, canAccept=false, scanArea={-1, -1, 1, 1}},
     ["QuatronLaser2"] = {speed=1500, canAccept=false, scanArea={-1, -1, 1, 1}},
     ["QuatronLaser3"] = {speed=5000, canAccept=false, scanArea={-1, -1, 1, 1}},
-    ["QuatronCubeMK1"] = {speed=200, canAccept=true, scanArea={-1.5, -1.5, 1.5, 1.5}},
-    ["QuatronCubeMK2"] = {speed=1500, canAccept=true, scanArea={-1.5, -1.5, 1.5, 1.5}},
-    ["QuatronCubeMK3"] = {speed=5000, canAccept=true, scanArea={-1.5, -1.5, 1.5, 1.5}},
+    ["QuatronCubeMK1"] = {speed=200, canAccept=true, scanArea={-1.5, -2, 1.5, 2}},
+    ["QuatronCubeMK2"] = {speed=1500, canAccept=true, scanArea={-1.5, -2, 1.5, 2}},
+    ["QuatronCubeMK3"] = {speed=5000, canAccept=true, scanArea={-1.5, -2, 1.5, 2}},
     ["InternalQuatronCube"] = {speed=5000, canAccept=true, scanArea={-3.5, -2.5, 3.5, 4.5}},
     ["QuatronReactor"] = {speed=5000, canAccept=false, scanArea={-2.5, -2.5, 2.5, 2.5}},
     ["NetworkAccessPoint"] = {speed=1000, canAccept=true},
-    ["FluidExtractor"] = {speed=1000, canAccept=true},
-    ["OreCleaner"] = {speed=1000, canAccept=true}
+    ["ResourcesCollector"] = {speed=1000, canAccept=true}
 }
 
 -- Return the current Energy --
@@ -103,6 +102,20 @@ function EI.removeEnergy(obj, amount)
     return maxRemoved
 end
 
+-- Set the Energy --
+function EI.setEnergy(obj, amount)
+    if obj.ent == nil or obj.ent.valid == false then return end
+    if amount < 0 then amount = 0 end
+    if obj.energyCharge ~= nil then
+        obj.energyCharge = amount
+    else
+        obj.ent.energy = amount
+    end
+    if EI.energyLevel(obj) ~= nil and EI.energy(obj) <= 0 then
+        obj.energyLevel = 1
+    end
+end
+
 -- Find Structures that can accept Energy around --
 function EI.findEIStructures(obj, laser)
 
@@ -123,7 +136,7 @@ function EI.findEIStructures(obj, laser)
     local ents = obj.ent.surface.find_entities_filtered{area={{x1, y1}, {x2, y2}}}
     for _, ent in pairs(ents) do
         if ent ~= nil and ent.valid == true and tableType[ent.name] ~= nil then
-            local ei = global.entsTable[ent.unit_number]
+            local ei = global.entsTable[ent.unit_number] or global.objectsTable[ent.unit_number]
             if ei~= nil and ei.ent ~= nil and ei.ent.valid == true then
                 if laser ~= true and EI.energy(obj) > EI.energy(ei) and tableType[ent.name].canAccept == true then
                     table.insert(eiTable, ei)
